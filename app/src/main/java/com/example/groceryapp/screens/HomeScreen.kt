@@ -3,6 +3,7 @@ package com.example.groceryapp.screens
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -54,7 +55,9 @@ import com.example.groceryapp.ui.theme.bg_light_green
 import com.example.groceryapp.ui.theme.text_gray
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavController
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -69,7 +72,7 @@ fun HomeScreen() {
                     .background(color = Color.White)
                     .padding(vertical = 20.dp)
             ) {
-                CategoryList()
+                CategoryList(navController)
                 BestSellingList()
             }
         }
@@ -202,7 +205,7 @@ fun OffersList() {
 }
 
 @Composable
-fun CategoryList() {
+fun CategoryList(navController: NavController) {
     Column {
         Row(
             modifier = Modifier.padding(horizontal = 16.dp),
@@ -224,19 +227,23 @@ fun CategoryList() {
             CategoryItem(
                 resId = R.drawable.ic_apple,
                 name = "Fruits"
-            )
+            ) {
+                navController.navigate("see_all")
+            }
             CategoryItem(
                 resId = R.drawable.ic_broccoli,
                 name = "Vegetables"
-            )
+            ) {
+                navController.navigate("see_all")
+            }
             CategoryItem(
                 resId = R.drawable.ic_cheese,
                 name = "Dairy"
-            )
+            ) {}
             CategoryItem(
                 resId = R.drawable.ic_meat,
                 name = "Meat"
-            )
+            ) {}
         }
     }
 }
@@ -244,14 +251,18 @@ fun CategoryList() {
 @Composable
 fun CategoryItem(
     resId: Int,
-    name: String
+    name: String,
+    onClick: () -> Unit
 ) {
     Column {
         Box(
             modifier = Modifier
                 .padding(8.dp)
                 .size(73.dp)
-                .background(color = bg_light_gray, shape = CircleShape),
+                .background(color = bg_light_gray, shape = CircleShape)
+                .clickable {
+                    onClick.invoke()
+                },
             contentAlignment = Alignment.Center
         ) {
             Image(painter = painterResource(id = resId), contentDescription = "")
@@ -281,12 +292,34 @@ fun BestSellingList() {
             Text(text = "See all", color = app_green)
         }
 
-        Row(
+        LazyRow(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            BestSellingItem(resId = R.drawable.img_paperica, "Bell Pepper Red", "1kg 4$")
-            BestSellingItem(resId = R.drawable.img_ginger, "Ginger", "1kg 4$")
+            item {
+                BestSellingItem(
+                    resId = R.drawable.img_paperica,
+                    "Bell Pepper Red",
+                    "1kg 4$"
+                ) {}
+            }
+            item { BestSellingItem(resId = R.drawable.img_ginger, "Ginger", "1kg 4$") {} }
+            item {
+                BestSellingItem(
+                    resId = R.drawable.img_paperica,
+                    "Bell Pepper Red",
+                    "1kg 4$"
+                ) {}
+            }
+            item { BestSellingItem(resId = R.drawable.img_ginger, "Ginger", "1kg 4$") {} }
+            item {
+                BestSellingItem(
+                    resId = R.drawable.img_paperica,
+                    "Bell Pepper Red",
+                    "1kg 4$"
+                ) {}
+            }
+            item { BestSellingItem(resId = R.drawable.img_ginger, "Ginger", "1kg 4$") {} }
         }
     }
 }
@@ -295,10 +328,14 @@ fun BestSellingList() {
 fun BestSellingItem(
     resId: Int,
     name: String,
-    priceAndQuantity: String
+    priceAndQuantity: String,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
+            .clickable {
+                onClick.invoke()
+            }
             .padding(start = 8.dp, end = 8.dp)
             .size(width = 160.dp, height = 214.dp),
         colors = CardDefaults.cardColors(containerColor = bg_light_gray),
@@ -388,5 +425,5 @@ fun BottomNavigationBar(navController: NavController) {
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(navController = rememberNavController())
 }

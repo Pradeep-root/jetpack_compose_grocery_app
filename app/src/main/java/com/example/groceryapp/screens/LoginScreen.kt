@@ -1,7 +1,9 @@
 package com.example.groceryapp.screens
 
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -49,6 +51,7 @@ import com.example.groceryapp.ui.theme.text_gray
 fun LoginScreen(
     navController: NavController
 ) {
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -61,6 +64,9 @@ fun LoginScreen(
         ) {
             Box(
                 modifier = Modifier
+                    .clickable {
+                        onBackPressedDispatcher?.onBackPressed()
+                    }
                     .background(
                         color = Color.White,
                         shape = CircleShape

@@ -11,7 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.groceryapp.screens.HomeScreen
+import com.example.groceryapp.screens.ItemDetailsScreen
 import com.example.groceryapp.screens.LoginScreen
+import com.example.groceryapp.screens.SeeAllScreen
 import com.example.groceryapp.screens.SplashScreen
 import com.example.groceryapp.ui.theme.GroceryAppTheme
 
@@ -38,7 +40,13 @@ class MainActivity : ComponentActivity() {
                             LoginScreen(navController = navController)
                         }
                         composable("home_screen") {
-                            HomeScreen()
+                            HomeScreen(navController = navController)
+                        }
+                        composable("see_all") {
+                            SeeAllScreen(navController = navController)
+                        }
+                        composable("item_details"){
+                            ItemDetailsScreen()
                         }
                     }
                 }
