@@ -32,6 +32,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.groceryapp.R
 import com.example.groceryapp.ui.theme.app_green
 import com.example.groceryapp.ui.theme.app_red
@@ -39,7 +41,9 @@ import com.example.groceryapp.ui.theme.bg_light_gray
 import com.example.groceryapp.ui.theme.text_gray
 
 @Composable
-fun ItemDetailsScreen() {
+fun ItemDetailsScreen(
+    navController: NavController
+) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     Box(
         modifier = Modifier
@@ -177,7 +181,7 @@ fun ItemDetailsScreen() {
                     .background(color = Color.White)
                     .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
             ) {
-                itemCategoryDetails(
+                ItemCategoryDetails(
                     img = R.drawable.ic_organic,
                     value = "100%",
                     type = "Organic",
@@ -186,7 +190,7 @@ fun ItemDetailsScreen() {
                         .weight(1f)
                 )
                 Spacer(modifier = Modifier.size(16.dp))
-                itemCategoryDetails(
+                ItemCategoryDetails(
                     img = R.drawable.ic_cal_1_year,
                     value = "100%",
                     type = "Organic",
@@ -201,7 +205,7 @@ fun ItemDetailsScreen() {
                     .background(color = Color.White)
                     .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 16.dp)
             ) {
-                itemCategoryDetails(
+                ItemCategoryDetails(
                     img = R.drawable.ic_star,
                     value = "100%",
                     type = "Organic",
@@ -210,7 +214,7 @@ fun ItemDetailsScreen() {
                         .weight(1f)
                 )
                 Spacer(modifier = Modifier.size(16.dp))
-                itemCategoryDetails(
+                ItemCategoryDetails(
                     img = R.drawable.ic_kal,
                     value = "100%",
                     type = "Organic",
@@ -227,7 +231,7 @@ fun ItemDetailsScreen() {
                     .align(alignment = Alignment.CenterHorizontally),
                 colors = ButtonDefaults.buttonColors(containerColor = app_green),
                 onClick = {
-
+                    navController.navigate("cart_screen")
                 }) {
                 Text(
                     text = "Add to cart",
@@ -240,7 +244,7 @@ fun ItemDetailsScreen() {
 }
 
 @Composable
-fun itemCategoryDetails(
+fun ItemCategoryDetails(
     img: Int,
     value: String,
     type: String,
@@ -286,5 +290,5 @@ fun itemCategoryDetails(
 @Preview
 @Composable
 fun ItemDetailsScreenPreview() {
-    ItemDetailsScreen()
+    ItemDetailsScreen(navController = rememberNavController())
 }

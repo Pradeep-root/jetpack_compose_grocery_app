@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.groceryapp.screens.CartScreen
 import com.example.groceryapp.screens.HomeScreen
 import com.example.groceryapp.screens.ItemDetailsScreen
 import com.example.groceryapp.screens.LoginScreen
@@ -46,7 +47,10 @@ class MainActivity : ComponentActivity() {
                             SeeAllScreen(navController = navController)
                         }
                         composable("item_details"){
-                            ItemDetailsScreen()
+                            ItemDetailsScreen(navController = navController)
+                        }
+                        composable("cart_screen"){
+                           CartScreen()
                         }
                     }
                 }
