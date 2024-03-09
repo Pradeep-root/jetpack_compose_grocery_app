@@ -2,6 +2,10 @@
 
 This app is made in Jetpack Compose following Material Design guidelines.
 
+## Author
+
+- [@Pradeep-Deshmukh](https://www.linkedin.com/in/pradeep-deshmukh-root/)
+
 
 ## Screenshots
 
